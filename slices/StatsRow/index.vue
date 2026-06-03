@@ -41,7 +41,7 @@
           ref="videoRef"
           :src="slice.primary.video_url"
           class="w-full h-auto object-cover"
-          muted playsinline preload="auto"
+          muted playsinline preload="metadata"
         />
         <img
           v-else
@@ -68,6 +68,7 @@ const rootRef  = ref(null)
 const videoRef = ref(null)
 
 if (props.slice.primary.video_url) {
-  useScrubVideo(videoRef, rootRef)
+  // `scrub_start` ('top' | 'middle') is set per section in content/home.js.
+  useScrubVideo(videoRef, rootRef, { startAt: props.slice.primary.scrub_start })
 }
 </script>

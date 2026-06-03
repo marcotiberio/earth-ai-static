@@ -4,6 +4,7 @@
     :video-url="slice.primary.video_url || ''"
     :image="slice.primary.image || {}"
     :scroll-length="slice.primary.scroll_length || 200"
+    :scrub-start="slice.primary.scrub_start || ''"
     align="bottom"
     overlay-class="bg-gradient-to-t from-ea-navy via-ea-navy/50 to-transparent"
   >

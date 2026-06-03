@@ -5,6 +5,7 @@
     :video-url="slice.primary.video_url || ''"
     :image="slice.primary.image || {}"
     :scroll-length="slice.primary.scroll_length || 200"
+    :scrub-start="slice.primary.scrub_start || ''"
     align="bottom"
     overlay-class="bg-gradient-to-t from-ea-navy via-ea-navy/20 to-transparent"
   >
@@ -24,7 +25,7 @@
         class="w-full h-[40vh] md:h-[55vh] object-cover"
         muted
         playsinline
-        preload="auto"
+        preload="metadata"
       />
       <img
         v-else-if="slice.primary.image?.url"
@@ -65,6 +66,7 @@ const rootRef  = ref(null)
 const videoRef = ref(null)
 
 if (props.slice.variation !== 'overlay' && props.slice.primary.video_url) {
-  useScrubVideo(videoRef, rootRef)
+  // `scrub_start` ('top' | 'middle') is set per section in content/home.js.
+  useScrubVideo(videoRef, rootRef, { startAt: props.slice.primary.scrub_start })
 }
 </script>

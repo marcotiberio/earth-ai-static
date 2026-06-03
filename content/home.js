@@ -3,6 +3,11 @@
 //
 // Drafted from the Figma "V4_SCROLL" master frame (node 442:4677). Each block
 // below maps to one slide in that comp; see the slice components in /slices.
+//
+// Scroll-scrub videos accept a per-section `scrub_start` in `primary`:
+//   'top'    → scrub starts when the section's top hits the viewport top
+//   'middle' → scrub starts when the section's top hits the viewport centre
+// Omit it on pinned scenes (hero / overlay / CTA) to keep their full-travel scrub.
 
 export const homePage = {
   data: {
@@ -38,6 +43,7 @@ export const homePage = {
         variation: 'overlay',
         primary: {
           video_url: '/videos/EAI_Datacenter-ChipDrawer_SideScroll01.mp4',
+          scrub_start: 'middle', // 'top' | 'middle'
           image: {
             url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600',
             alt: 'Data centre server racks',
@@ -133,6 +139,7 @@ export const homePage = {
         primary: {
           heading: 'We drilled through the <em>stratosphere</em>.',
           video_url: '/videos/EAI_Ground.mp4',
+          scrub_start: 'middle', // 'top' | 'middle'
           image: { url: '', alt: '' },
         },
         items: [

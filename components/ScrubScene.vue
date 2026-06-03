@@ -9,12 +9,14 @@
     class="relative w-full bg-ea-navy"
     :style="{ height: `${scrollLength}vh` }"
   >
-    <!-- Pinned background: scrubbed video (or static image fallback) -->
+    <!-- Pinned stage: video background AND content both pin to the top for the
+         whole scrub, then wipe away together when the section ends. -->
     <div class="sticky top-0 h-screen w-full overflow-hidden">
       <video
         v-if="videoUrl"
         ref="videoRef"
-        :src="videoUrl"
+        :src="videoSrc || undefined"
+        :poster="image && image.url ? image.url : undefined"
         muted
         playsinline
         preload="auto"
@@ -30,11 +32,10 @@
 
       <!-- Decorative layers that should stay pinned with the video -->
       <slot name="pinned" />
-    </div>
 
-    <!-- Content layer: scrolls over the pinned background, then leaves with it -->
-    <div class="absolute inset-0 z-10">
-      <div class="h-screen w-full flex px-6 md:px-10" :class="alignClass">
+      <!-- Content: scrolls in with the section, then holds at bottom 5% (or the
+           chosen alignment) while the video scrubs, then wipes away with it. -->
+      <div class="absolute inset-0 z-10 flex px-6 md:px-10" :class="alignClass">
         <slot />
       </div>
     </div>
@@ -42,7 +43,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 
 const props = defineProps({
   videoUrl:     { type: String, default: '' },
@@ -51,21 +52,65 @@ const props = defineProps({
   // ~one full screen of scroll, over which the content travels in and out.
   scrollLength: { type: Number, default: 200 },
   align:        { type: String, default: 'bottom' }, // 'top' | 'center' | 'bottom'
+  // Named scrub start preset ('top' | 'middle'). Empty keeps the pinned
+  // default below (scrub spans the full sticky travel).
+  scrubStart:   { type: String, default: '' },
   overlayClass: { type: String, default: 'bg-ea-navy/40' },
+  // Eager = download on page load (use for the hero). Otherwise the clip is
+  // fetched lazily as the section approaches, so we don't pull every video at
+  // once on first paint.
+  eager:        { type: Boolean, default: false },
 })
 
 const rootRef  = ref(null)
 const videoRef = ref(null)
 
+// Lazy src: empty until the section nears the viewport (or immediately if eager).
+const videoSrc = ref(props.eager ? props.videoUrl : '')
+let observer = null
+
+// Vertical resting position while pinned. Bottom anchors the content 5% up
+// from the bottom edge (per design), matching the live site's held caption.
 const alignClass = computed(() => ({
-  top:    'items-start pt-28 md:pt-32',
+  top:    'items-start pt-[5vh]',
   center: 'items-center',
-  bottom: 'items-end pb-20 md:pb-28',
-}[props.align] || 'items-end pb-20 md:pb-28'))
+  bottom: 'items-end pb-[5vh]',
+}[props.align] || 'items-end pb-[5vh]'))
+
+onMounted(() => {
+  if (!props.videoUrl || props.eager) return
+  const el = rootRef.value
+  if (!el || typeof IntersectionObserver === 'undefined') {
+    videoSrc.value = props.videoUrl // no IO support → just load it
+    return
+  }
+  // Start fetching ~1.5 screens before the section enters so it has time to
+  // buffer enough for a smooth scrub by the time it pins.
+  observer = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting)) {
+      videoSrc.value = props.videoUrl
+      // Setting src alone isn't enough — kick the load explicitly so the clip
+      // actually buffers (and loadeddata fires for the scrub setup).
+      nextTick(() => videoRef.value?.load())
+      observer.disconnect()
+      observer = null
+    }
+  }, { rootMargin: '150% 0px 150% 0px' })
+  observer.observe(el)
+})
+
+onBeforeUnmount(() => observer?.disconnect())
 
 // Pinned scrub: map currentTime 0 → duration across the section's pinned travel
 // (top hits viewport top → bottom hits viewport bottom), matching the sticky pin.
+// A `scrubStart` preset overrides this with a per-section start ('top'|'middle').
 if (props.videoUrl) {
-  useScrubVideo(videoRef, rootRef, { start: 'top top', end: 'bottom bottom' })
+  useScrubVideo(
+    videoRef,
+    rootRef,
+    props.scrubStart
+      ? { startAt: props.scrubStart }
+      : { start: 'top top', end: 'bottom bottom' },
+  )
 }
 </script>

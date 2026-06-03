@@ -6,16 +6,33 @@ import { onMounted, onUnmounted, unref } from 'vue'
  * the ScrollTrigger trigger (usually the section root).
  *
  * Options:
- *   start / end — ScrollTrigger positions. Defaults scrub the clip across the
- *                 section's full transit through the viewport.
+ *   startAt     — named start preset ('top' | 'middle'); see SCRUB_PRESETS.
+ *   start / end — explicit ScrollTrigger positions. Override the preset when
+ *                 given; otherwise default to the full transit through view.
  *   scrub       — ScrollTrigger scrub value (seconds of catch-up lag).
  *
  * The Safari priming notes from the original ScrollVideo slice still apply:
  * we wait for a decoded frame and kick the decode pipeline with a muted
  * play()/pause() so seeks actually repaint.
  */
+
+// Named start/end presets, selectable per section (e.g. via a `scrub_start`
+// content field). Both scrub across the section's transit — they differ only
+// in where in the viewport the scrub begins and ends.
+export const SCRUB_PRESETS = {
+  // Scrub begins when the section's top reaches the top of the viewport.
+  top:    { start: 'top top',    end: 'bottom top' },
+  // Scrub begins when the section's top reaches the centre of the viewport.
+  middle: { start: 'top center', end: 'bottom center' },
+}
+
 export function useScrubVideo(videoRef, triggerRef, options = {}) {
   let ctx = null
+
+  // Resolve a named preset into positions. An explicit start/end always wins.
+  const preset = SCRUB_PRESETS[options.startAt] || {}
+  const start  = options.start || preset.start || 'top bottom'
+  const end    = options.end   || preset.end   || 'bottom top'
 
   onMounted(async () => {
     const video   = unref(videoRef)
@@ -54,8 +71,8 @@ export function useScrubVideo(videoRef, triggerRef, options = {}) {
         ease: 'none',
         scrollTrigger: {
           trigger,
-          start: options.start || 'top bottom',
-          end:   options.end   || 'bottom top',
+          start,
+          end,
           scrub: options.scrub ?? 1,
         },
         onUpdate: () => {
@@ -67,3 +84,11 @@ export function useScrubVideo(videoRef, triggerRef, options = {}) {
 
   onUnmounted(() => ctx?.revert())
 }
+
+// Two ready-made instances a section can call directly. Both forward to the
+// engine above with a fixed start preset.
+export const useScrubVideoTop = (videoRef, triggerRef, options = {}) =>
+  useScrubVideo(videoRef, triggerRef, { ...options, startAt: 'top' })
+
+export const useScrubVideoMiddle = (videoRef, triggerRef, options = {}) =>
+  useScrubVideo(videoRef, triggerRef, { ...options, startAt: 'middle' })
