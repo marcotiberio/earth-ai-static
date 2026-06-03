@@ -1,0 +1,6 @@
+{
+  "id": "earth-ai",
+  "repositoryName": "PRISMIC_REPO_NAME",
+  "adapter": "@slicemachine/adapter-nuxt",
+  "libraries": ["./slices"]
+}

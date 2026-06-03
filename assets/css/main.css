@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-ea-navy text-ea-cream font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 0; }
+}
+
+@layer components {
+  /* Dotted baseline grid used across every section in the Figma comp. */
+  .ea-rule {
+    @apply border-0 border-t border-dashed border-ea-cream/15;
+  }
+
+  /* Display headlines render in the serif; <em> is the italic accent. */
+  .wysiwyg h1, .wysiwyg h2, .wysiwyg h3 {
+    @apply font-serif font-normal leading-[1.05] tracking-tight;
+  }
+  .wysiwyg p {
+    @apply leading-relaxed;
+  }
+  .wysiwyg em,
+  .ea-display em {
+    @apply italic font-normal;
+  }
+}

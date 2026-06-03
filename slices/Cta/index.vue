@@ -1,0 +1,33 @@
+<template>
+  <!-- Pinned closing video; the CTA scrolls over it -->
+  <ScrubScene
+    :video-url="slice.primary.video_url || ''"
+    :image="slice.primary.image || {}"
+    :scroll-length="slice.primary.scroll_length || 200"
+    align="center"
+    overlay-class="bg-ea-navy/40"
+  >
+    <div class="w-full">
+      <h2
+        class="ea-display font-serif text-ea-cream text-5xl md:text-8xl font-normal leading-[1.0] tracking-tight max-w-4xl"
+        v-html="slice.primary.title"
+      />
+      <a
+        v-if="slice.primary.button_link?.url"
+        :href="slice.primary.button_link.url"
+        class="mt-10 inline-block text-sm tracking-wide text-ea-cream border border-ea-cream/40 px-8 py-4 hover:bg-ea-cream hover:text-ea-navy transition-colors"
+      >
+        {{ slice.primary.button_link.text }}
+      </a>
+    </div>
+  </ScrubScene>
+</template>
+
+<script setup>
+defineProps({
+  slice:   { type: Object, required: true },
+  context: { type: Object },
+  index:   { type: Number },
+  slices:  { type: Array },
+})
+</script>
