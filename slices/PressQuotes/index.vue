@@ -4,7 +4,7 @@
       v-if="imageUrl"
       :src="imageUrl"
       :alt="imageAlt"
-      class="h-auto w-full aspect-4/3 self-start object-cover rounded"
+      class="h-auto w-full aspect-video self-start object-cover rounded"
     />
 
     <component
