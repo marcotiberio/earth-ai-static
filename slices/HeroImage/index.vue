@@ -8,22 +8,6 @@
     overlay-class="bg-darkblue/40"
     eager
   >
-    <!-- Pinned decorative layers (dotted grid + tick markers) -->
-    <template #pinned>
-      <div class="pointer-events-none absolute inset-x-6 md:inset-x-10 top-[27%] bottom-[14%] flex flex-col justify-between">
-        <hr v-for="n in 4" :key="n" class="ea-rule" />
-      </div>
-      <span
-        v-for="(m, i) in slice.primary.markers || []"
-        :key="`marker-${i}`"
-        class="absolute flex items-start gap-1 text-[11px] tracking-widest text-beige/70"
-        :style="{ left: m.x, top: m.y }"
-      >
-        <span class="leading-none">+</span>
-        <span class="[writing-mode:vertical-rl] rotate-180">{{ m.value }}</span>
-      </span>
-    </template>
-
     <!-- Content that scrolls over the pinned hero video -->
     <div class="w-full flex flex-col gap-8 md:flex-row md:items-end md:justify-start">
       <!-- TODO: replace with PrismicRichText when Prismic is connected -->

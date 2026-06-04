@@ -60,25 +60,22 @@ export function useScrubVideo(videoRef, triggerRef, options = {}) {
     const kick = video.play()
     if (kick && kick.then) kick.then(() => video.pause()).catch(() => {})
 
-    // Build the scrub off the clip's duration, so wait until metadata is known
-    // (fires early, even on iOS, once load()/play() has run). Never hang: bail
-    // out after a timeout and use whatever duration we have.
+    // Build the scrub off the clip's duration, so wait until the duration is
+    // actually known. No timeout: lazy scenes only get their src when the
+    // section nears the viewport (which can be many seconds after mount), so a
+    // timeout would fire first and build the tween with duration 0 — leaving
+    // deep sections frozen on the first frame. Resolve only once duration is
+    // real; if a clip never loads, that section simply never wires up (no harm).
+    const hasDuration = () => Number.isFinite(video.duration) && video.duration > 0
     await new Promise((resolve) => {
-      if (Number.isFinite(video.duration) && video.duration > 0) return resolve()
-      let settled = false
-      const finish = () => {
-        if (settled) return
-        settled = true
-        video.removeEventListener('loadedmetadata', finish)
-        video.removeEventListener('loadeddata', finish)
-        video.removeEventListener('canplay', finish)
-        clearTimeout(timer)
+      if (hasDuration()) return resolve()
+      const events = ['loadedmetadata', 'durationchange', 'loadeddata', 'canplay']
+      const check = () => {
+        if (!hasDuration()) return
+        events.forEach((e) => video.removeEventListener(e, check))
         resolve()
       }
-      video.addEventListener('loadedmetadata', finish)
-      video.addEventListener('loadeddata', finish)
-      video.addEventListener('canplay', finish)
-      const timer = setTimeout(finish, 8000)
+      events.forEach((e) => video.addEventListener(e, check))
     })
 
     try {

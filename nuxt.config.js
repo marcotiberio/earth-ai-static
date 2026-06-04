@@ -1,9 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    // '@nuxtjs/prismic', // reconnect after handover session
-    '@nuxtjs/tailwindcss',
-  ],
+  modules: [// '@nuxtjs/prismic', // reconnect after handover session
+  '@nuxtjs/tailwindcss', "@nuxtjs/prismic"],
 
   // prismic: {
   //   endpoint: process.env.PRISMIC_ENDPOINT,

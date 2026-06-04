@@ -22,7 +22,7 @@ export const homePage = {
         primary: {
           video_url: '/videos/EAI_Landscape-Hero.mp4',
           image: {
-            url: '_images/EAI_Landscape-Hero.jpg',
+            url: '/images/EAI_Landscape-Hero.jpg',
             alt: 'Mountain landscape',
           },
           height: 'full',
@@ -43,13 +43,9 @@ export const homePage = {
         variation: 'overlay',
         primary: {
           video_url: '/videos/_test/EAI_Datacenter-ChipDrawer_30fps_BTR10.mp4',
-          image: {
-            url: '/videos/EAI_Datacenter-ChipDrawer_SideScroll01.jpg',
-            alt: 'Data centre server racks',
-          },
           scrub_start: 'middle', // 'top' | 'middle'
           image: {
-            url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600',
+            url: '/images/EAI_Datacenter-ChipDrawer_SideScroll01.jpg',
             alt: 'Data centre server racks',
           },
           title: 'The future requires <em>$12 trillion</em> of critical minerals.',
@@ -65,7 +61,7 @@ export const homePage = {
           video_url: '/videos/_test/EAI_Datacenter-ChipDrawer_60fps_BTR20.mp4',
           scrub_start: 'middle', // 'top' | 'middle'
           image: {
-            url: '/videos/EAI_Datacenter-ChipDrawer_SideScroll01.jpg',
+            url: '/images/EAI_Datacenter-ChipDrawer_SideScroll01.jpg',
             alt: 'Data centre server racks',
           },
           title: 'The future requires <em>$12 trillion</em> of critical minerals.',
@@ -80,7 +76,7 @@ export const homePage = {
         primary: {
           video_url: '/videos/EAI_Chip-Rock.mp4',
           image: {
-            url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600',
+            url: '/images/EAI_Chip-Rock.jpg',
             alt: 'Processor chip close-up',
           },
           title: 'All cannot exist without <em>critical minerals</em>.',
@@ -144,7 +140,7 @@ export const homePage = {
         primary: {
           video_url: '/videos/EAI_Scan.mp4',
           image: {
-            url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600',
+            url: '/images/EAI_Scan.jpg',
             alt: 'Continental-scale targeting map',
           },
           heading: 'We operate like no other mineral exploration company.',
@@ -160,7 +156,9 @@ export const homePage = {
           heading: 'We drilled through the <em>stratosphere</em>.',
           video_url: '/videos/EAI_Ground.mp4',
           scrub_start: 'middle', // 'top' | 'middle'
-          image: { url: '', alt: '' },
+          image: { url: '/images/EAI_Ground.jpg',
+            alt: 'Drill stats' 
+          },
         },
         items: [
           { value: '96,000', label: 'Feet Drilled' },
@@ -177,6 +175,10 @@ export const homePage = {
         variation: 'default',
         primary: {
           video_url: '/videos/EAI_FutureCity.mp4',
+          image: {
+            url: '/images/EAI_FutureCity.jpg',
+            alt: 'Continental-scale targeting map',
+          },
           title: 'Let’s build the <em>future</em> together.',
           button_link: { url: '#contact', text: 'Contact us' },
         },
