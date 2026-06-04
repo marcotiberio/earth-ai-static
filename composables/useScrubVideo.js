@@ -43,23 +43,48 @@ export function useScrubVideo(videoRef, triggerRef, options = {}) {
     const { ScrollTrigger: ST } = await import('gsap/ScrollTrigger')
     gsap.registerPlugin(ST)
 
-    // Wait for actual frame data (readyState >= 2), not just metadata —
-    // Safari needs a decoded frame before it will honour currentTime seeks.
+    video.muted = true // required for an unattended play()
+
+    // Kick the pipeline BEFORE waiting for data. iOS Safari ignores
+    // preload="auto" — it won't fetch the clip (and won't paint seeked frames)
+    // until a muted inline play() has run. Doing this after the wait deadlocks:
+    // the data never arrives, so loadeddata never fires. A muted play() is
+    // allowed without a user gesture, so it both starts buffering and unlocks
+    // painting; we pause immediately and drive currentTime from scroll instead.
+    // Only force a load() when the element is idle with nothing buffered (the
+    // iOS case). On desktop it's already NETWORK_LOADING, so we skip it to
+    // avoid interrupting / re-fetching.
+    if (video.readyState === 0 && video.networkState !== 2 /* LOADING */) {
+      try { video.load() } catch { /* ignore */ }
+    }
+    const kick = video.play()
+    if (kick && kick.then) kick.then(() => video.pause()).catch(() => {})
+
+    // Build the scrub off the clip's duration, so wait until metadata is known
+    // (fires early, even on iOS, once load()/play() has run). Never hang: bail
+    // out after a timeout and use whatever duration we have.
     await new Promise((resolve) => {
-      if (video.readyState >= 2) return resolve()
-      video.addEventListener('loadeddata', resolve, { once: true })
+      if (Number.isFinite(video.duration) && video.duration > 0) return resolve()
+      let settled = false
+      const finish = () => {
+        if (settled) return
+        settled = true
+        video.removeEventListener('loadedmetadata', finish)
+        video.removeEventListener('loadeddata', finish)
+        video.removeEventListener('canplay', finish)
+        clearTimeout(timer)
+        resolve()
+      }
+      video.addEventListener('loadedmetadata', finish)
+      video.addEventListener('loadeddata', finish)
+      video.addEventListener('canplay', finish)
+      const timer = setTimeout(finish, 8000)
     })
 
-    // Prime the decode pipeline: Safari won't paint seeked frames on a video
-    // that has never played. A muted play()/pause() kick fixes the frozen scrub.
     try {
-      video.muted = true
-      await video.play()
       video.pause()
       video.currentTime = 0
-    } catch {
-      // Autoplay rejected — scrub still works in browsers that don't need the kick.
-    }
+    } catch { /* ignore */ }
 
     // Seek explicitly on each tick rather than tweening currentTime directly:
     // Safari coalesces rapid currentTime writes, so an explicit seek repaints

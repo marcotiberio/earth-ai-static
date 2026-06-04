@@ -1,19 +1,19 @@
 <template>
-  <footer class="bg-ea-navy px-6 py-20 md:px-10">
+  <footer class="bg-darkblue px-6 py-20 md:px-10">
     <!-- Press quotes -->
     <div class="flex items-center justify-between mb-10">
-      <span class="text-sm text-ea-grey">Follow our journey.</span>
-      <a href="#contact" class="text-sm text-ea-cream hover:text-ea-cream/70 transition-colors">
+      <span class="text-sm text-grey">Follow our journey.</span>
+      <a href="#contact" class="text-sm text-beige hover:text-beige/70 transition-colors">
         Contact us
       </a>
     </div>
 
-    <ul class="grid gap-8 border-t border-ea-cream/15 pt-10 md:grid-cols-3">
+    <ul class="grid gap-8 border-t border-beige/15 pt-10 md:grid-cols-3">
       <li v-for="(item, i) in press" :key="i" class="flex flex-col gap-4">
-        <p class="font-serif text-ea-cream text-lg md:text-xl leading-snug">
+        <p class="font-serif text-beige text-lg md:text-xl leading-snug">
           &ldquo;{{ item.quote }}&rdquo;
         </p>
-        <div class="mt-auto flex items-center justify-between text-xs text-ea-grey">
+        <div class="mt-auto flex items-center justify-between text-xs text-grey">
           <span>{{ item.outlet }}</span>
           <time :datetime="item.date">{{ item.date }}</time>
         </div>
@@ -21,10 +21,10 @@
     </ul>
 
     <!-- Bottom bar -->
-    <div class="mt-16 flex flex-col gap-4 border-t border-ea-cream/15 pt-8 text-sm text-ea-grey md:flex-row md:items-center md:justify-between">
+    <div class="mt-16 flex flex-col gap-4 border-t border-beige/15 pt-8 text-sm text-grey md:flex-row md:items-center md:justify-between">
       <span>© EARTH AI – {{ new Date().getFullYear() }}</span>
       <nav class="flex gap-8">
-        <a v-for="link in legal" :key="link.label" :href="link.href" class="hover:text-ea-cream transition-colors">
+        <a v-for="link in legal" :key="link.label" :href="link.href" class="hover:text-beige transition-colors">
           {{ link.label }}
         </a>
       </nav>

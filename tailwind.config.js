@@ -10,20 +10,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Body / UI grotesk. Swap Inter for Earth AI's licensed sans once confirmed.
-        sans:  ['Inter', 'system-ui', 'sans-serif'],
-        // Editorial display serif used for all headlines (the italic "New Industrial Era").
-        // TODO: replace 'Tiempos Headline' with the licensed display face from Figma.
-        serif: ['"Tiempos Headline"', 'Georgia', 'Times New Roman', 'serif'],
+        // Body / UI grotesk
+        sans:  ['"Beausite Classic"', 'system-ui', 'sans-serif'],
+        // Editorial display face used for all headlines (the italic "New Industrial Era").
+        serif: ['"TWK Ghost"', 'Georgia', 'Times New Roman', 'serif'],
       },
       colors: {
-        // Earth AI palette — sampled from the Figma "V4_SCROLL" master frame.
-        'ea-navy':  '#050F23', // page background
-        'ea-cream': '#FAF3E4', // primary text / display
-        'ea-grey':  '#8A93A6', // muted captions on navy
+        // Earth AI palette
+        'darkblue':  '#050F23', // page background
+        'beige': '#FAF3E4',
+        'grey':  '#8A93A6', // muted captions on navy
         // Back-compat aliases (older slices referenced these).
-        'ea-black': '#050F23',
-        'ea-white': '#FAF3E4',
+        'black': '#050F23',
+        'white': '#FAF3E4',
       },
     },
   },

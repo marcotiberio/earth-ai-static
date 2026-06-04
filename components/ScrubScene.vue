@@ -6,7 +6,7 @@
        the section ends, the sticky releases and the next section enters. -->
   <section
     ref="rootRef"
-    class="relative w-full bg-ea-navy"
+    class="relative w-full bg-darkblue"
     :style="{ height: `${scrollLength}vh` }"
   >
     <!-- Pinned stage: video background AND content both pin to the top for the
@@ -55,7 +55,7 @@ const props = defineProps({
   // Named scrub start preset ('top' | 'middle'). Empty keeps the pinned
   // default below (scrub spans the full sticky travel).
   scrubStart:   { type: String, default: '' },
-  overlayClass: { type: String, default: 'bg-ea-navy/40' },
+  overlayClass: { type: String, default: 'bg-darkblue/40' },
   // Eager = download on page load (use for the hero). Otherwise the clip is
   // fetched lazily as the section approaches, so we don't pull every video at
   // once on first paint.
@@ -89,9 +89,18 @@ onMounted(() => {
   observer = new IntersectionObserver((entries) => {
     if (entries.some(e => e.isIntersecting)) {
       videoSrc.value = props.videoUrl
-      // Setting src alone isn't enough — kick the load explicitly so the clip
-      // actually buffers (and loadeddata fires for the scrub setup).
-      nextTick(() => videoRef.value?.load())
+      // Setting src alone isn't enough — kick load() + a muted inline play() so
+      // the clip actually buffers and (on iOS) unlocks frame painting for the
+      // scrub. The composable's own kick already ran at mount, before this src
+      // existed, so we re-trigger it here once the source is attached.
+      nextTick(() => {
+        const v = videoRef.value
+        if (!v) return
+        v.muted = true
+        try { v.load() } catch { /* ignore */ }
+        const p = v.play()
+        if (p && p.then) p.then(() => v.pause()).catch(() => {})
+      })
       observer.disconnect()
       observer = null
     }

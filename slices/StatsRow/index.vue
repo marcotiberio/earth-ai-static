@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-ea-navy px-6 py-24 md:px-10 md:py-32">
+  <section class="bg-darkblue px-6 py-24 md:px-10 md:py-32">
     <div
       :class="[
         'flex flex-col gap-16',
@@ -10,7 +10,7 @@
       <div class="flex-1">
         <h2
           v-if="slice.primary.heading"
-          class="ea-display font-serif text-ea-cream text-3xl md:text-5xl font-normal leading-[1.1] mb-16 max-w-xl"
+          class="ea-display font-serif text-beige text-3xl md:text-5xl font-normal leading-[1.1] mb-16 max-w-xl"
           v-html="slice.primary.heading"
         />
 
@@ -23,13 +23,13 @@
           <li v-for="(item, i) in slice.items" :key="i" class="flex flex-col gap-3">
             <span
               :class="[
-                'font-serif text-ea-cream leading-none',
+                'font-serif text-beige leading-none',
                 slice.variation === 'large' ? 'text-6xl md:text-8xl' : 'text-4xl md:text-6xl',
               ]"
             >
               {{ item.value }}
             </span>
-            <span class="text-sm text-ea-grey">{{ item.label }}</span>
+            <span class="text-sm text-grey">{{ item.label }}</span>
           </li>
         </ul>
       </div>

@@ -22,7 +22,7 @@ export const homePage = {
         primary: {
           video_url: '/videos/EAI_Landscape-Hero.mp4',
           image: {
-            url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920',
+            url: '_images/EAI_Landscape-Hero.jpg',
             alt: 'Mountain landscape',
           },
           height: 'full',
@@ -37,15 +37,35 @@ export const homePage = {
         },
       },
 
-      // ── Slide 2 · Datacenter / $12T ───────────────────────────────────────
+      // ── Slide 2 · Datacenter / $12T Lower ───────────────────────────────────────
       {
         slice_type: 'image_text',
         variation: 'overlay',
         primary: {
-          video_url: '/videos/EAI_Datacenter-ChipDrawer_SideScroll01.mp4',
+          video_url: '/videos/_test/EAI_Datacenter-ChipDrawer_30fps_BTR10.mp4',
+          image: {
+            url: '/videos/EAI_Datacenter-ChipDrawer_SideScroll01.jpg',
+            alt: 'Data centre server racks',
+          },
           scrub_start: 'middle', // 'top' | 'middle'
           image: {
             url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600',
+            alt: 'Data centre server racks',
+          },
+          title: 'The future requires <em>$12 trillion</em> of critical minerals.',
+          body: 'AI data centres, next-gen processors, quantum computing, GPUs, green energy, and batteries all depend on minerals that are increasingly scarce.',
+        },
+      },
+
+      // ── Slide 2 · Datacenter / $12T Higher ───────────────────────────────────────
+      {
+        slice_type: 'image_text',
+        variation: 'overlay',
+        primary: {
+          video_url: '/videos/_test/EAI_Datacenter-ChipDrawer_60fps_BTR20.mp4',
+          scrub_start: 'middle', // 'top' | 'middle'
+          image: {
+            url: '/videos/EAI_Datacenter-ChipDrawer_SideScroll01.jpg',
             alt: 'Data centre server racks',
           },
           title: 'The future requires <em>$12 trillion</em> of critical minerals.',

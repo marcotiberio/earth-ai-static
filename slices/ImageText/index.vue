@@ -7,16 +7,16 @@
     :scroll-length="slice.primary.scroll_length || 200"
     :scrub-start="slice.primary.scrub_start || ''"
     align="bottom"
-    overlay-class="bg-gradient-to-t from-ea-navy via-ea-navy/20 to-transparent"
+    overlay-class="bg-gradient-to-t from-darkblue via-darkblue/20 to-transparent"
   >
     <h2
-      class="ea-display font-serif text-ea-cream text-4xl md:text-6xl font-normal leading-[1.05] max-w-2xl"
+      class="ea-display font-serif text-beige text-4xl md:text-6xl font-normal leading-[1.05] max-w-2xl"
       v-html="slice.primary.title"
     />
   </ScrubScene>
 
   <!-- variation: "default" — media band with the headline set beneath it -->
-  <section v-else ref="rootRef" class="relative w-full bg-ea-navy px-6 py-20 md:px-10 md:py-28">
+  <section v-else ref="rootRef" class="relative w-full bg-darkblue px-6 py-20 md:px-10 md:py-28">
     <div class="w-full overflow-hidden">
       <video
         v-if="slice.primary.video_url"
@@ -38,12 +38,12 @@
     <div class="mt-12 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
       <!-- TODO: replace with PrismicRichText when Prismic is connected -->
       <h2
-        class="ea-display font-serif text-ea-cream text-3xl md:text-5xl font-normal leading-[1.1] max-w-2xl"
+        class="ea-display font-serif text-beige text-3xl md:text-5xl font-normal leading-[1.1] max-w-2xl"
         v-html="slice.primary.title"
       />
       <p
         v-if="slice.primary.body"
-        class="text-ea-grey text-base leading-relaxed max-w-sm"
+        class="text-grey text-base leading-relaxed max-w-sm"
       >
         {{ slice.primary.body }}
       </p>

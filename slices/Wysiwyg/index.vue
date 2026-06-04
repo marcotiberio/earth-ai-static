@@ -1,16 +1,16 @@
 <template>
-  <section class="bg-ea-navy px-6 py-28 md:px-10 md:py-40">
+  <section class="bg-darkblue px-6 py-28 md:px-10 md:py-40">
     <!-- variation: "statement" — oversized editorial pull-statement -->
     <div
       v-if="slice.variation === 'statement'"
-      class="ea-display font-serif text-ea-cream text-4xl md:text-7xl font-normal leading-[1.08] tracking-tight max-w-5xl"
+      class="ea-display font-serif text-beige text-4xl md:text-7xl font-normal leading-[1.08] tracking-tight max-w-5xl"
       v-html="slice.primary.content"
     />
 
     <!-- variation: "default" — running prose -->
     <div
       v-else
-      class="wysiwyg max-w-3xl text-ea-cream text-xl md:text-2xl leading-relaxed"
+      class="wysiwyg max-w-3xl text-beige text-xl md:text-2xl leading-relaxed"
       v-html="slice.primary.content"
     />
   </section>

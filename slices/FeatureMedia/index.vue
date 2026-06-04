@@ -6,16 +6,16 @@
     :scroll-length="slice.primary.scroll_length || 200"
     :scrub-start="slice.primary.scrub_start || ''"
     align="bottom"
-    overlay-class="bg-gradient-to-t from-ea-navy via-ea-navy/50 to-transparent"
+    overlay-class="bg-gradient-to-t from-darkblue via-darkblue/50 to-transparent"
   >
     <div class="w-full flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
       <h2
-        class="ea-display font-serif text-ea-cream text-3xl md:text-6xl font-normal leading-[1.08] max-w-2xl"
+        class="ea-display font-serif text-beige text-3xl md:text-6xl font-normal leading-[1.08] max-w-2xl"
         v-html="slice.primary.heading"
       />
       <p
         v-if="slice.primary.body"
-        class="text-ea-cream/80 text-base leading-relaxed max-w-md"
+        class="text-beige/80 text-base leading-relaxed max-w-md"
       >
         {{ slice.primary.body }}
       </p>

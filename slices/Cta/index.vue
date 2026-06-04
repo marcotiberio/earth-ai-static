@@ -6,17 +6,17 @@
     :scroll-length="slice.primary.scroll_length || 200"
     :scrub-start="slice.primary.scrub_start || ''"
     align="center"
-    overlay-class="bg-ea-navy/40"
+    overlay-class="bg-darkblue/40"
   >
     <div class="w-full">
       <h2
-        class="ea-display font-serif text-ea-cream text-5xl md:text-8xl font-normal leading-[1.0] tracking-tight max-w-4xl"
+        class="ea-display font-serif text-beige text-5xl md:text-8xl font-normal leading-[1.0] tracking-tight max-w-4xl"
         v-html="slice.primary.title"
       />
       <a
         v-if="slice.primary.button_link?.url"
         :href="slice.primary.button_link.url"
-        class="mt-10 inline-block text-sm tracking-wide text-ea-cream border border-ea-cream/40 px-8 py-4 hover:bg-ea-cream hover:text-ea-navy transition-colors"
+        class="mt-10 inline-block text-sm tracking-wide text-beige border border-beige/40 px-8 py-4 hover:bg-beige hover:text-darkblue transition-colors"
       >
         {{ slice.primary.button_link.text }}
       </a>
