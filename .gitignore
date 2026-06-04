@@ -2,6 +2,7 @@
 .nuxt
 .output
 dist
+.netlify
 
 # Env
 .env

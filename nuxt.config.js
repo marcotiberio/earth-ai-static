@@ -1,12 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-export default defineNuxtConfig({
-  modules: [// '@nuxtjs/prismic', // reconnect after handover session
-  '@nuxtjs/tailwindcss', "@nuxtjs/prismic"],
+import { apiEndpoint, repositoryName } from './slicemachine.config.json'
 
-  // prismic: {
-  //   endpoint: process.env.PRISMIC_ENDPOINT,
-  //   clientConfig: { accessToken: process.env.PRISMIC_ACCESS_TOKEN },
-  // },
+export default defineNuxtConfig({
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/prismic'],
+
+  prismic: {
+    endpoint: apiEndpoint || repositoryName,
+  },
 
   devServer: { port: 3000 },
 

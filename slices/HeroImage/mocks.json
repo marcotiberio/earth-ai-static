@@ -1,0 +1,74 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Supplying Critical Minerals for the New Industrial Era",
+							"spans": [
+								{
+									"type": "em",
+									"start": 36,
+									"end": 54
+								}
+							]
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"subtitle": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "We are a vertically integrated AI-powered explorer that discovers, develops, and owns critical mineral mines.",
+							"spans": []
+						},
+						"direction": "ltr"
+					}
+				]
+			},
+			"button_link": {
+				"key": "91d64d90-4fbb-47a9-b3b8-5c85f80f91cf",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "AnyLink",
+					"kind": "any",
+					"text": "news"
+				}
+			},
+			"height": {
+				"__TYPE__": "FieldContent",
+				"value": "auto",
+				"type": "Select"
+			},
+			"scroll_length": {
+				"__TYPE__": "FieldContent",
+				"value": "59",
+				"type": "Number"
+			},
+			"scrub_start": {
+				"__TYPE__": "FieldContent",
+				"value": "top",
+				"type": "Select"
+			},
+			"markers": {
+				"__TYPE__": "GroupContentType",
+				"value": []
+			}
+		},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": []
+			}
+		]
+	}
+]

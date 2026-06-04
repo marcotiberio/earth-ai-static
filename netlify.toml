@@ -1,0 +1,9 @@
+# Nuxt 3 SSR on Netlify. Nitro auto-selects its `netlify` preset when building
+# in Netlify's CI (NETLIFY=true), emitting static assets to `dist/` and the
+# server handler as a Netlify function.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"

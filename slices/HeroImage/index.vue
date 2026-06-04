@@ -1,6 +1,6 @@
 <template>
   <ScrubScene
-    :video-url="slice.primary.video_url || ''"
+    :video-url="videoUrl"
     :image="slice.primary.image || {}"
     :scroll-length="slice.primary.scroll_length || 200"
     :scrub-start="slice.primary.scrub_start || ''"
@@ -8,28 +8,55 @@
     overlay-class="bg-darkblue/40"
     eager
   >
+
     <!-- Content that scrolls over the pinned hero video -->
     <div class="w-full flex flex-col gap-8 md:flex-row md:items-end md:justify-start">
-      <!-- TODO: replace with PrismicRichText when Prismic is connected -->
       <h1
         class="ea-display font-serif text-beige text-5xl md:text-8xl font-normal leading-[1.0] tracking-tight max-w-4xl"
-        v-html="slice.primary.title"
+        v-html="titleHtml"
       />
       <p
-        v-if="slice.primary.subtitle"
+        v-if="subtitleHtml"
         class="text-beige/85 text-base md:text-lg max-w-sm md:mb-3"
-      >
-        {{ slice.primary.subtitle }}
-      </p>
+        v-html="subtitleHtml"
+      />
     </div>
   </ScrubScene>
 </template>
 
 <script setup>
-defineProps({
+import { asHTML } from '@prismicio/client'
+
+const props = defineProps({
   slice:   { type: Object, required: true },
   context: { type: Object },
   index:   { type: Number },
   slices:  { type: Array },
 })
+
+// Strip block wrappers so rich text renders as inline markup inside our own
+// styled <h1>/<p>, keeping bold/italic (and links) from the Prismic field.
+const inlineSerializer = {
+  heading1:  ({ children }) => children,
+  heading2:  ({ children }) => children,
+  paragraph: ({ children }) => children,
+}
+
+// Tolerate both the static string shape (content/home.js) and real Prismic
+// rich text (the simulator and the live API).
+const toHtml = (field) => {
+  if (!field) return ''
+  return typeof field === 'string'
+    ? field
+    : asHTML(field, { serializer: inlineSerializer }) || ''
+}
+
+// Link-to-Media fields come back as an object ({ url, ... }); static content
+// passes a plain string.
+const mediaUrl = (field) =>
+  typeof field === 'string' ? field : field?.url || ''
+
+const titleHtml    = computed(() => toHtml(props.slice.primary.title))
+const subtitleHtml = computed(() => toHtml(props.slice.primary.subtitle))
+const videoUrl     = computed(() => mediaUrl(props.slice.primary.video_url))
 </script>

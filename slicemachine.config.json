@@ -1,0 +1,7 @@
+{
+	"repositoryName": "earth-ai-static",
+	"apiEndpoint": "https://earth-ai-static.cdn.prismic.io/api/v2",
+	"adapter": "@slicemachine/adapter-nuxt",
+	"libraries": ["./slices"],
+	"localSliceSimulatorURL": "http://localhost:3000/slice-simulator"
+}

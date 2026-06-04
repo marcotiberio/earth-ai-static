@@ -15,31 +15,9 @@ export const homePage = {
     meta_description: 'Earth AI is a vertically integrated, AI-powered explorer that discovers, develops, and owns critical mineral mines.',
     slices: [
 
-      // ── Slide 1 · Hero ────────────────────────────────────────────────────
-      {
-        slice_type: 'hero_image',
-        variation: 'default',
-        primary: {
-          video_url: '/videos/EAI_Landscape-Hero.mp4',
-          image: {
-            url: '/images/EAI_Landscape-Hero.jpg',
-            alt: 'Mountain landscape',
-          },
-          height: 'full',
-          title: 'Supplying Critical Minerals for the <em>New Industrial Era</em>',
-          subtitle: 'We are a vertically integrated AI-powered explorer that discovers, develops, and owns critical mineral mines.',
-          button_link: null,
-          // Decorative animated tick-counters from the comp (positions are % of viewport)
-          markers: [
-            { value: '25,405', x: '39%', y: '27%' },
-            { value: '45,670', x: '85%', y: '47%' },
-          ],
-        },
-      },
-
       // ── Slide 2 · Datacenter / $12T Lower ───────────────────────────────────────
       {
-        slice_type: 'image_text',
+        slice_type: 'video_scroll',
         variation: 'overlay',
         primary: {
           video_url: '/videos/_test/EAI_Datacenter-ChipDrawer_30fps_BTR10.mp4',
@@ -55,7 +33,7 @@ export const homePage = {
 
       // ── Slide 2 · Datacenter / $12T Higher ───────────────────────────────────────
       {
-        slice_type: 'image_text',
+        slice_type: 'video_scroll',
         variation: 'overlay',
         primary: {
           video_url: '/videos/_test/EAI_Datacenter-ChipDrawer_60fps_BTR20.mp4',
@@ -71,7 +49,7 @@ export const homePage = {
 
       // ── Slide 3 · Chip (full-bleed overlay) ───────────────────────────────
       {
-        slice_type: 'image_text',
+        slice_type: 'video_scroll',
         variation: 'overlay',
         primary: {
           video_url: '/videos/EAI_Chip-Rock.mp4',

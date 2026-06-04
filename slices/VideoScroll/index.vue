@@ -2,7 +2,7 @@
   <!-- variation: "overlay" — pinned full-bleed video; the headline scrolls over it -->
   <ScrubScene
     v-if="slice.variation === 'overlay'"
-    :video-url="slice.primary.video_url || ''"
+    :video-url="videoUrl"
     :image="slice.primary.image || {}"
     :scroll-length="slice.primary.scroll_length || 200"
     :scrub-start="slice.primary.scrub_start || ''"
@@ -11,7 +11,7 @@
   >
     <h2
       class="ea-display font-serif text-beige text-4xl md:text-6xl font-normal leading-[1.05] max-w-2xl"
-      v-html="slice.primary.title"
+      v-html="titleHtml"
     />
   </ScrubScene>
 
@@ -19,9 +19,9 @@
   <section v-else ref="rootRef" class="relative w-full bg-darkblue px-6 py-20 md:px-10 md:py-28">
     <div class="w-full overflow-hidden">
       <video
-        v-if="slice.primary.video_url"
+        v-if="videoUrl"
         ref="videoRef"
-        :src="slice.primary.video_url"
+        :src="videoUrl"
         class="w-full h-[40vh] md:h-[55vh] object-cover"
         muted
         playsinline
@@ -36,10 +36,9 @@
     </div>
 
     <div class="mt-12 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-      <!-- TODO: replace with PrismicRichText when Prismic is connected -->
       <h2
         class="ea-display font-serif text-beige text-3xl md:text-5xl font-normal leading-[1.1] max-w-2xl"
-        v-html="slice.primary.title"
+        v-html="titleHtml"
       />
       <p
         v-if="slice.primary.body"
@@ -52,7 +51,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { asHTML } from '@prismicio/client'
 
 const props = defineProps({
   slice:   { type: Object, required: true },
@@ -60,6 +60,31 @@ const props = defineProps({
   index:   { type: Number },
   slices:  { type: Array },
 })
+
+// Strip block wrappers so rich text renders as inline markup inside our own
+// styled <h2>, keeping bold/italic (and links) from the Prismic field.
+const inlineSerializer = {
+  heading1:  ({ children }) => children,
+  heading2:  ({ children }) => children,
+  paragraph: ({ children }) => children,
+}
+
+// Tolerate both the static string shape (content/home.js) and real Prismic
+// rich text (the live API).
+const toHtml = (field) => {
+  if (!field) return ''
+  return typeof field === 'string'
+    ? field
+    : asHTML(field, { serializer: inlineSerializer }) || ''
+}
+
+// Link-to-Media fields come back as an object ({ url, ... }); static content
+// passes a plain string.
+const mediaUrl = (field) =>
+  typeof field === 'string' ? field : field?.url || ''
+
+const titleHtml = computed(() => toHtml(props.slice.primary.title))
+const videoUrl  = computed(() => mediaUrl(props.slice.primary.video_url))
 
 // Only used by the non-pinned "default" band variation.
 const rootRef  = ref(null)
