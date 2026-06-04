@@ -6,7 +6,8 @@
     :image="slice.primary.image || {}"
     :scroll-length="slice.primary.scroll_length || 200"
     :scrub-start="slice.primary.scrub_start || ''"
-    align="bottom"
+    :align="slice.primary.title_align_vertical || 'bottom'"
+    :align-x="slice.primary.title_align_horizontal || 'left'"
     overlay-class="bg-gradient-to-t from-darkblue via-darkblue/20 to-transparent"
   >
     <h2

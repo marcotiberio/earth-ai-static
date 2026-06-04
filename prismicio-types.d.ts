@@ -69,7 +69,7 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
-type HomePageDocumentDataSlicesSlice = HeroImageSlice;
+type HomePageDocumentDataSlicesSlice = HeroImageSlice | VideoScrollSlice;
 
 /**
  * Content for Home Page documents
@@ -126,56 +126,21 @@ export type HomePageDocument<Lang extends string = string> =
 export type AllDocumentTypes = HomePageDocument;
 
 /**
- * Item in *HeroImage → Default → Primary → markers*
- */
-export interface HeroImageSliceDefaultPrimaryMarkersItem {
-  /**
-   * value field in *HeroImage → Default → Primary → markers*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: e.g. 25,405
-   * - **API ID Path**: hero_image.default.primary.markers[].value
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  value: prismic.KeyTextField;
-
-  /**
-   * x field in *HeroImage → Default → Primary → markers*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Horizontal position, e.g. 39%
-   * - **API ID Path**: hero_image.default.primary.markers[].x
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  x: prismic.KeyTextField;
-
-  /**
-   * y field in *HeroImage → Default → Primary → markers*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Vertical position, e.g. 27%
-   * - **API ID Path**: hero_image.default.primary.markers[].y
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  y: prismic.KeyTextField;
-}
-
-/**
  * Primary content in *HeroImage → Default → Primary*
  */
 export interface HeroImageSliceDefaultPrimary {
   /**
-   * video_url field in *HeroImage → Default → Primary*
+   * Background video field in *HeroImage → Default → Primary*
    *
    * - **Field Type**: Link to Media
-   * - **Placeholder**: Background video (link to media)
+   * - **Placeholder**: Upload or select a video from the Media Library
    * - **API ID Path**: hero_image.default.primary.video_url
    * - **Documentation**: https://prismic.io/docs/fields/link-to-media
    */
   video_url: prismic.LinkToMediaField<prismic.FieldState, never>;
 
   /**
-   * image field in *HeroImage → Default → Primary*
+   * Background image field in *HeroImage → Default → Primary*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
@@ -185,7 +150,7 @@ export interface HeroImageSliceDefaultPrimary {
   image: prismic.ImageField<never>;
 
   /**
-   * title field in *HeroImage → Default → Primary*
+   * Title field in *HeroImage → Default → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Headline
@@ -195,7 +160,7 @@ export interface HeroImageSliceDefaultPrimary {
   title: prismic.RichTextField;
 
   /**
-   * subtitle field in *HeroImage → Default → Primary*
+   * Subtitle field in *HeroImage → Default → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: Supporting copy
@@ -203,65 +168,6 @@ export interface HeroImageSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   subtitle: prismic.RichTextField;
-
-  /**
-   * button_link field in *HeroImage → Default → Primary*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_image.default.primary.button_link
-   * - **Documentation**: https://prismic.io/docs/fields/link
-   */
-  button_link: prismic.LinkField<
-    string,
-    string,
-    unknown,
-    prismic.FieldState,
-    never
-  >;
-
-  /**
-   * height field in *HeroImage → Default → Primary*
-   *
-   * - **Field Type**: Select
-   * - **Placeholder**: *None*
-   * - **Default Value**: full
-   * - **API ID Path**: hero_image.default.primary.height
-   * - **Documentation**: https://prismic.io/docs/fields/select
-   */
-  height: prismic.SelectField<"full" | "auto", "filled">;
-
-  /**
-   * scroll_length field in *HeroImage → Default → Primary*
-   *
-   * - **Field Type**: Number
-   * - **Placeholder**: Scroll travel in vh (default 200)
-   * - **API ID Path**: hero_image.default.primary.scroll_length
-   * - **Documentation**: https://prismic.io/docs/fields/number
-   */
-  scroll_length: prismic.NumberField;
-
-  /**
-   * scrub_start field in *HeroImage → Default → Primary*
-   *
-   * - **Field Type**: Select
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_image.default.primary.scrub_start
-   * - **Documentation**: https://prismic.io/docs/fields/select
-   */
-  scrub_start: prismic.SelectField<"top" | "middle">;
-
-  /**
-   * markers field in *HeroImage → Default → Primary*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: hero_image.default.primary.markers[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
-   */
-  markers: prismic.GroupField<
-    Simplify<HeroImageSliceDefaultPrimaryMarkersItem>
-  >;
 }
 
 /**
@@ -286,12 +192,115 @@ type HeroImageSliceVariation = HeroImageSliceDefault;
  * HeroImage Shared Slice
  *
  * - **API ID**: `hero_image`
- * - **Description**: Full-bleed scroll-scrub hero with a video/image background and overlaid headline.
+ * - **Description**: Full-bleed hero with a background video/image and an overlaid title and subtitle.
  * - **Documentation**: https://prismic.io/docs/slices
  */
 export type HeroImageSlice = prismic.SharedSlice<
   "hero_image",
   HeroImageSliceVariation
+>;
+
+/**
+ * Primary content in *VideoScroll → Overlay → Primary*
+ */
+export interface VideoScrollSliceOverlayPrimary {
+  /**
+   * Background video field in *VideoScroll → Overlay → Primary*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: Upload or select a video from the Media Library
+   * - **API ID Path**: video_scroll.overlay.primary.video_url
+   * - **Documentation**: https://prismic.io/docs/fields/link-to-media
+   */
+  video_url: prismic.LinkToMediaField<prismic.FieldState, never>;
+
+  /**
+   * Background image field in *VideoScroll → Overlay → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video_scroll.overlay.primary.image
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Title field in *VideoScroll → Overlay → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Headline
+   * - **API ID Path**: video_scroll.overlay.primary.title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Scrub start field in *VideoScroll → Overlay → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: When the scroll-scrub begins (default: full travel)
+   * - **API ID Path**: video_scroll.overlay.primary.scrub_start
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  scrub_start: prismic.SelectField<"top" | "middle">;
+
+  /**
+   * Title vertical position field in *VideoScroll → Overlay → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Vertical position (default: bottom)
+   * - **Default Value**: bottom
+   * - **API ID Path**: video_scroll.overlay.primary.title_align_vertical
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  title_align_vertical: prismic.SelectField<
+    "top" | "center" | "bottom",
+    "filled"
+  >;
+
+  /**
+   * Title horizontal position field in *VideoScroll → Overlay → Primary*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Horizontal position (default: left)
+   * - **Default Value**: left
+   * - **API ID Path**: video_scroll.overlay.primary.title_align_horizontal
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  title_align_horizontal: prismic.SelectField<
+    "left" | "center" | "right",
+    "filled"
+  >;
+}
+
+/**
+ * Overlay variation for VideoScroll Slice
+ *
+ * - **API ID**: `overlay`
+ * - **Description**: Pinned full-bleed background with an overlaid headline.
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type VideoScrollSliceOverlay = prismic.SharedSliceVariation<
+  "overlay",
+  Simplify<VideoScrollSliceOverlayPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *VideoScroll*
+ */
+type VideoScrollSliceVariation = VideoScrollSliceOverlay;
+
+/**
+ * VideoScroll Shared Slice
+ *
+ * - **API ID**: `video_scroll`
+ * - **Description**: Pinned full-bleed video/image with a headline that scrolls over it.
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type VideoScrollSlice = prismic.SharedSlice<
+  "video_scroll",
+  VideoScrollSliceVariation
 >;
 
 declare module "@prismicio/client" {
@@ -320,10 +329,13 @@ declare module "@prismicio/client" {
       HomePageDocumentDataSlicesSlice,
       AllDocumentTypes,
       HeroImageSlice,
-      HeroImageSliceDefaultPrimaryMarkersItem,
       HeroImageSliceDefaultPrimary,
       HeroImageSliceVariation,
       HeroImageSliceDefault,
+      VideoScrollSlice,
+      VideoScrollSliceOverlayPrimary,
+      VideoScrollSliceVariation,
+      VideoScrollSliceOverlay,
     };
   }
 }
