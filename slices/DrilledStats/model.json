@@ -1,0 +1,64 @@
+{
+  "id": "drilled_stats",
+  "type": "SharedSlice",
+  "name": "DrilledStats",
+  "description": "Pinned light scene: a WYSIWYG title with count-up metrics beside a drilling arrow that grows skyward on scroll. Add up to 4 stat rows.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Title",
+            "placeholder": "Headline (e.g. We drilled through the stratosphere.)",
+            "allowTargetBlank": true,
+            "single": "paragraph,strong,em"
+          }
+        },
+        "feet_value": {
+          "type": "Text",
+          "config": {
+            "label": "Feet drilled — value",
+            "placeholder": "e.g. 96,000 (counts up on scroll)"
+          }
+        },
+        "feet_label": {
+          "type": "Text",
+          "config": {
+            "label": "Feet drilled — label",
+            "placeholder": "e.g. Feet Drilled"
+          }
+        },
+        "stats": {
+          "type": "Group",
+          "config": {
+            "label": "Stats (max 4)",
+            "fields": {
+              "label": {
+                "type": "Text",
+                "config": {
+                  "label": "Title",
+                  "placeholder": "e.g. Deposits"
+                }
+              },
+              "value": {
+                "type": "Text",
+                "config": {
+                  "label": "Number",
+                  "placeholder": "e.g. 6 or 4.1 mil (counts up on scroll)"
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -126,25 +126,21 @@ export const homePage = {
         },
       },
 
-      // ── Slide 8.4 · Drill stats ───────────────────────────────────────────
+      // ── Slide 8.4 · Drill stats (pinned arrow scene) ──────────────────────
       {
-        slice_type: 'stats_row',
+        slice_type: 'drilled_stats',
         variation: 'default',
         primary: {
-          heading: 'We drilled through the <em>stratosphere</em>.',
-          video_url: '/videos/EAI_Ground.mp4',
-          scrub_start: 'middle', // 'top' | 'middle'
-          image: { url: '/images/EAI_Ground.jpg',
-            alt: 'Drill stats' 
-          },
+          title: 'We drilled through the stratosphere.',
+          feet_value: '96,000',
+          feet_label: 'Feet Drilled',
+          stats: [
+            { label: 'Deposits',                value: '6' },
+            { label: 'Acres of Mineral Rights', value: '4.1 mil' },
+            { label: 'Holes Drilled',           value: '62' },
+            { label: 'Projects',                value: '28' },
+          ],
         },
-        items: [
-          { value: '96,000', label: 'Feet Drilled' },
-          { value: '62',     label: 'Holes Drilled' },
-          { value: '28',     label: 'Projects' },
-          { value: '4.1 mil', label: 'Acres of Mineral Rights' },
-          { value: '6',      label: 'Deposits' },
-        ],
       },
 
       // ── Slide 9 · CTA ─────────────────────────────────────────────────────
