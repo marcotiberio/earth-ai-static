@@ -9,54 +9,60 @@
   -->
   <section
     ref="rootRef"
-    class="relative w-full bg-darkblue px-6 py-24 md:px-10 md:py-32 flex min-h-screen flex-col justify-center"
+    class="relative w-full bg-darkblue"
+    :class="tall ? 'h-[220vh]' : ''"
   >
-    <h2
-      class="ea-display font-serif text-beige text-4xl md:text-5xl xl:text-6xl font-normal leading-[1.05] tracking-tight max-w-2xl"
-      v-html="headingHtml"
-    />
+    <div
+      class="w-full px-6 md:px-10"
+      :class="tall ? 'sticky top-0 flex h-screen flex-col justify-center overflow-hidden' : 'flex min-h-screen flex-col justify-center py-24'"
+    >
+      <h2
+        class="ea-display font-serif text-beige text-4xl md:text-5xl xl:text-6xl font-normal leading-[1.05] tracking-tight max-w-2xl"
+        v-html="headingHtml"
+      />
 
-    <div class="mt-16 flex flex-col gap-14 md:mt-20 md:gap-20">
-      <div v-for="(group, gi) in groups" :key="gi">
-        <!-- metric label + dotted rule -->
-        <div class="text-[11px] font-medium tracking-[0.25em] text-grey">{{ group.metric }}</div>
-        <hr class="ea-rule mt-3" />
+      <div class="mt-16 flex flex-col gap-14 md:mt-20 md:gap-20">
+        <div v-for="(group, gi) in groups" :key="gi">
+          <!-- metric label + dotted rule -->
+          <div class="text-[11px] font-medium tracking-[0.25em] text-grey">{{ group.metric }}</div>
+          <hr class="ea-rule mt-3" />
 
-        <!-- bars -->
-        <div class="mt-8 flex flex-col gap-7 md:gap-9">
-          <div
-            v-for="(row, ri) in group.rows"
-            :key="ri"
-            class="grid grid-cols-[7rem_1fr] items-center gap-4 md:grid-cols-[12rem_1fr] md:gap-8"
-          >
-            <span
-              class="text-sm md:text-base"
-              :class="row.highlight ? 'text-[#E66F3E]' : 'text-beige'"
+          <!-- bars -->
+          <div class="mt-8 flex flex-col gap-7 md:gap-9">
+            <div
+              v-for="(row, ri) in group.rows"
+              :key="ri"
+              class="grid grid-cols-[7rem_1fr] items-center gap-4 md:grid-cols-[12rem_1fr] md:gap-8"
             >
-              {{ row.label }}
-            </span>
-
-            <div class="flex min-w-0 items-center">
-              <!-- the bar itself — width is the normalised target scaled by progress -->
-              <div
-                class="h-14 shrink-0 rounded-[3px] md:h-20"
-                :style="[barStyle(row), { width: barWidth(group, row) }]"
-              />
-
-              <!-- count-up number, sitting just past the bar's tip -->
-              <div
-                class="ml-4 flex shrink-0 flex-col leading-none whitespace-nowrap md:ml-5"
+              <span
+                class="text-sm md:text-base"
                 :class="row.highlight ? 'text-[#E66F3E]' : 'text-beige'"
               >
-                <span class="font-serif text-4xl tabular-nums md:text-5xl xl:text-6xl">
-                  {{ display(group, row.value) }}
-                </span>
-                <span
-                  v-if="group.unit && group.unit !== '%'"
-                  class="mt-1 text-[11px] font-medium tracking-[0.2em]"
+                {{ row.label }}
+              </span>
+
+              <div class="flex min-w-0 items-center">
+                <!-- the bar itself — width is the normalised target scaled by progress -->
+                <div
+                  class="h-14 shrink-0 rounded-[3px] md:h-20"
+                  :style="[barStyle(row), { width: barWidth(group, row) }]"
+                />
+
+                <!-- count-up number, sitting just past the bar's tip -->
+                <div
+                  class="ml-4 flex shrink-0 flex-col leading-none whitespace-nowrap md:ml-5"
+                  :class="row.highlight ? 'text-[#E66F3E]' : 'text-beige'"
                 >
-                  {{ group.unit }}
-                </span>
+                  <span class="font-serif text-4xl tabular-nums md:text-5xl xl:text-6xl">
+                    {{ display(group, row.value) }}
+                  </span>
+                  <span
+                    v-if="group.unit && group.unit !== '%'"
+                    class="mt-1 text-[11px] font-medium tracking-[0.2em]"
+                  >
+                    {{ group.unit }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -135,16 +141,20 @@ function barStyle(row) {
       }
 }
 
-// --- Scroll reveal -----------------------------------------------------------
-// progress 0→1 plays once when the section enters view, scrubbing every bar's
-// width and number together. Reduced motion jumps to the finished state.
+// --- Scroll-driven progress (pinned scrub) -----------------------------------
+// The section is tall so its inner panel can stick and scrub progress 0→1 as you
+// scroll past, growing every bar's width and counting its number up together.
+// `tall` starts true so SSR and client render identically; reduced-motion
+// clients drop it to a normal-height section and show the finished state.
 const rootRef  = ref(null)
 const progress = ref(0)
+const tall     = ref(true)
 
 let ctx = null
 
 onMounted(async () => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    tall.value = false
     progress.value = 1
     return
   }
