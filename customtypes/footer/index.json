@@ -1,22 +1,66 @@
 {
-	"format": "page",
-	"id": "footer",
-	"label": "Footer",
-	"repeatable": false,
-	"status": true,
-	"json": {
-		"Main": {
-			"slices": {
-				"type": "Slices",
-				"fieldset": "Slice Zone",
-				"config": {
-					"choices": {
-						"press_quotes": {
-							"type": "SharedSlice"
-						}
-					}
-				}
-			}
-		}
-	}
+  "format": "page",
+  "id": "footer",
+  "label": "Footer",
+  "repeatable": false,
+  "status": true,
+  "json": {
+    "Main": {
+      "footer_main_title": {
+        "type": "Text",
+        "config": {
+          "label": "Footer Main Title",
+          "placeholder": "Follow our journey."
+        }
+      },
+      "logo_footer": {
+        "type": "Image",
+        "config": {
+          "label": "Logo Footer",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "social_media_links": {
+        "type": "Group",
+        "config": {
+          "label": "Social Media Links",
+          "repeat": true,
+          "fields": {
+            "social": {
+              "type": "Select",
+              "config": {
+                "label": "Social",
+                "placeholder": "Linkedin",
+                "options": ["Linkedin", "Instagram", "Youtube", "X", "TikTok"],
+                "default_value": "Linkedin"
+              }
+            },
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "placeholder": "",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": false,
+                "repeat": false
+              }
+            }
+          }
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": {
+            "press_quotes": {
+              "type": "SharedSlice"
+            }
+          }
+        }
+      }
+    }
+  }
 }

@@ -73,11 +73,13 @@ const props = defineProps({
   slices:  { type: Array },
 })
 
-// Strip block wrappers so rich text renders as inline markup inside our own
-// styled <h2>, keeping bold/italic (and links) from the Prismic field.
+// Map each heading level chosen in the Prismic editor to a responsive size, so
+// the "font size" picked in the WYSIWYG actually drives the rendered headline.
+// Bold/italic (and links) from the field are preserved inside each block.
 const inlineSerializer = {
-  heading1:  ({ children }) => children,
-  heading2:  ({ children }) => children,
+  heading1:  ({ children }) => `<span class="block leading-[1.1] text-h2 md:text-h1">${children}</span>`,
+  heading2:  ({ children }) => `<span class="block leading-[1.1] text-h3 md:text-h2">${children}</span>`,
+  heading3:  ({ children }) => `<span class="block leading-[1.1] text-base md:text-h3">${children}</span>`,
   paragraph: ({ children }) => children,
 }
 

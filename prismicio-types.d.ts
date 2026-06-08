@@ -69,12 +69,76 @@ type ContentRelationshipFieldWithData<
   >;
 }[Exclude<TCustomType[number], string>["id"]];
 
+/**
+ * Item in *Footer → Social Media Links*
+ */
+export interface FooterDocumentDataSocialMediaLinksItem {
+  /**
+   * Social field in *Footer → Social Media Links*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Linkedin
+   * - **Default Value**: Linkedin
+   * - **API ID Path**: footer.social_media_links[].social
+   * - **Documentation**: https://prismic.io/docs/fields/select
+   */
+  social: prismic.SelectField<
+    "Linkedin" | "Instagram" | "Youtube" | "X" | "TikTok",
+    "filled"
+  >;
+
+  /**
+   * Link field in *Footer → Social Media Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.social_media_links[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
 type FooterDocumentDataSlicesSlice = PressQuotesSlice;
 
 /**
  * Content for Footer documents
  */
 interface FooterDocumentData {
+  /**
+   * Footer Main Title field in *Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Follow our journey.
+   * - **API ID Path**: footer.footer_main_title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  footer_main_title: prismic.KeyTextField;
+
+  /**
+   * Logo Footer field in *Footer*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.logo_footer
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  logo_footer: prismic.ImageField<never>;
+
+  /**
+   * Social Media Links field in *Footer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.social_media_links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  social_media_links: prismic.GroupField<
+    Simplify<FooterDocumentDataSocialMediaLinksItem>
+  >;
+
   /**
    * Slice Zone field in *Footer*
    *
@@ -1013,6 +1077,7 @@ declare module "@prismicio/client" {
     export type {
       FooterDocument,
       FooterDocumentData,
+      FooterDocumentDataSocialMediaLinksItem,
       FooterDocumentDataSlicesSlice,
       HomePageDocument,
       HomePageDocumentData,

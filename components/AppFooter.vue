@@ -1,13 +1,36 @@
 <template>
   <footer class="text-darkblue px-6 py-20 md:px-10">
-    <!-- Press quotes -->
-    <div class="flex items-center justify-between mb-10">
-      <span class="text-label text-beige">Follow our journey.</span>
-      <a href="#contact" class="text-label text-beige hover:text-grey transition-colors">
-        Contact us
-      </a>
+    <!-- Top Bar -->
+    <div class="flex flex-col items-start justify-between gap-sm mb-md w-full">
+      <div class="flex flex-row items-start justify-between gap-sm w-full">
+        <div class="flex flex-col items-start justify-between gap-sm w-full md:w-1/2">
+          <span class="text-h2 font-serif text-beige">{{ mainTitle }}</span>
+          <!-- ToDo: Add contact link -->
+          <a
+            href="mailto:info@earthai.com"
+            class="btn btn-primary mt-auto text-label text-darkblue hover:underline"
+          >Contact us</a>
+        </div>
+        <PrismicImage
+          v-if="footer?.data?.logo_footer?.url"
+          :field="footer.data.logo_footer"
+          class="h-md w-auto"
+        />
+      </div>
+      <ul v-if="footer?.data?.social_media_links?.length" class="flex gap-sm">
+        <li v-for="(item, i) in footer.data.social_media_links" :key="i">
+          <PrismicLink :field="item.link" class="block text-beige hover:text-grey transition-colors">
+            <img
+              :src="`/icons/${item.social.toLowerCase()}.svg`"
+              :alt="item.social"
+              class="h-6 w-6"
+            />
+          </PrismicLink>
+        </li>
+      </ul>
     </div>
 
+    <!-- Press quotes -->
     <div class="grid gap-8 border-t border-beige pt-10 md:grid-cols-3">
       <SliceZone :slices="visibleSlices(press)" :components="components" />
     </div>
@@ -73,6 +96,10 @@ const press = computed(() => {
   const slices = footer.value?.data?.slices
   return slices?.length ? slices : fallbackPress
 })
+
+const mainTitle = computed(
+  () => footer.value?.data?.footer_main_title || 'Follow our journey.',
+)
 
 // TODO: move these into the `footer` page document too.
 const legal = [
