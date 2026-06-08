@@ -19,7 +19,7 @@
         <div
           v-for="(track, li) in numberTracks"
           :key="`line-${li}`"
-          class="relative h-6 w-full overflow-hidden"
+          class="relative h-12 w-full overflow-hidden"
         >
           <svg
             class="absolute bottom-0 left-0"
@@ -31,7 +31,7 @@
             data-line
             class="absolute bottom-1 left-0 w-full flex items-end justify-between gap-8 whitespace-nowrap font-mono text-[10px] leading-none tracking-widest tabular-nums text-beige/50"
           >
-            <span v-for="(n, ni) in track" :key="ni" data-num class="opacity-0">{{ fmt(n) }}</span>
+            <span v-for="(n, ni) in track" :key="ni" data-num class="inline-block w-12 origin-top-left -rotate-90 whitespace-nowrap opacity-0">{{ fmt(n) }}</span>
           </div>
         </div>
       </div>
@@ -42,14 +42,14 @@
         :style="{ left: m.x, top: m.y }"
       >
         <span class="leading-none">+</span>
-        <span class="[writing-mode:vertical-rl] rotate-180">{{ m.value }}</span>
+        <span class="inline-block origin-top-left -rotate-90 whitespace-nowrap leading-none">{{ m.value }}</span>
       </span>
     </template>
 
     <!-- Content that scrolls over the pinned hero video -->
     <div class="w-full flex flex-col gap-8 md:flex-row md:items-end md:justify-start">
       <h1
-        class="ea-display font-serif text-beige text-h1 w-full md:w-1/2"
+        class="ea-display font-serif text-beige text-h2 md:text-h1 w-full md:w-1/2"
         v-html="titleHtml"
       />
       <p
