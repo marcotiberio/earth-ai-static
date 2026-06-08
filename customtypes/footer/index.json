@@ -50,6 +50,26 @@
           }
         }
       },
+      "legal_links": {
+        "type": "Group",
+        "config": {
+          "label": "Legal Links",
+          "repeat": true,
+          "fields": {
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "placeholder": "Terms of Service",
+                "select": null,
+                "allowTargetBlank": true,
+                "allowText": true,
+                "repeat": false
+              }
+            }
+          }
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

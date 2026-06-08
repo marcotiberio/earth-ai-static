@@ -98,6 +98,21 @@ export interface FooterDocumentDataSocialMediaLinksItem {
   link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 }
 
+/**
+ * Item in *Footer → Legal Links*
+ */
+export interface FooterDocumentDataLegalLinksItem {
+  /**
+   * Link field in *Footer → Legal Links*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Terms of Service
+   * - **API ID Path**: footer.legal_links[].link
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
 type FooterDocumentDataSlicesSlice = PressQuotesSlice;
 
 /**
@@ -138,6 +153,17 @@ interface FooterDocumentData {
   social_media_links: prismic.GroupField<
     Simplify<FooterDocumentDataSocialMediaLinksItem>
   >;
+
+  /**
+   * Legal Links field in *Footer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.legal_links[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  legal_links: prismic.GroupField<Simplify<FooterDocumentDataLegalLinksItem>>;
 
   /**
    * Slice Zone field in *Footer*
@@ -1078,6 +1104,7 @@ declare module "@prismicio/client" {
       FooterDocument,
       FooterDocumentData,
       FooterDocumentDataSocialMediaLinksItem,
+      FooterDocumentDataLegalLinksItem,
       FooterDocumentDataSlicesSlice,
       HomePageDocument,
       HomePageDocumentData,

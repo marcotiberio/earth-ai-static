@@ -36,13 +36,16 @@
     </div>
 
     <!-- Bottom bar -->
-    <div class="mt-16 flex flex-col gap-4 border-t border-beige pt-8 text-label text-beige md:flex-row md:items-center md:justify-between">
-      <span>© EARTH AI – {{ new Date().getFullYear() }}</span>
-      <nav class="flex gap-8">
-        <a v-for="link in legal" :key="link.label" :href="link.href" class="hover:text-grey transition-colors">
-          {{ link.label }}
-        </a>
+    <div class="mt-sm flex flex-col justify-start md:flex-row md:items-center md:justify-end gap-sm border-t border-beige pt-sm text-label text-beige">
+      <nav v-if="footer?.data?.legal_links?.length" class="w-full flex justify-center md:justify-end gap-sm">
+        <PrismicLink
+          v-for="(item, i) in footer.data.legal_links"
+          :key="i"
+          :field="item.link"
+          class="hover:text-grey transition-colors"
+        />
       </nav>
+      <span class="whitespace-nowrap flex justify-center">© EARTH AI – {{ new Date().getFullYear() }}</span>
     </div>
   </footer>
 </template>
@@ -100,10 +103,4 @@ const press = computed(() => {
 const mainTitle = computed(
   () => footer.value?.data?.footer_main_title || 'Follow our journey.',
 )
-
-// TODO: move these into the `footer` page document too.
-const legal = [
-  { label: 'Privacy Policy',   href: '#privacy' },
-  { label: 'Terms of Service', href: '#terms' },
-]
 </script>
