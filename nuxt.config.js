@@ -8,6 +8,14 @@ export default defineNuxtConfig({
     endpoint: apiEndpoint || repositoryName,
   },
 
+  // Base URL used to build absolute og:url / og:image links. Override per
+  // environment with NUXT_PUBLIC_SITE_URL (e.g. the production domain).
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://earthaistatic.netlify.app/',
+    },
+  },
+
   devServer: { port: 3000 },
 
   css: ['~/assets/css/main.css'],
@@ -18,6 +26,12 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        // Static Open Graph / Twitter defaults; page-level tags below override
+        // title/description/image/url per route via useSeoMeta.
+        { property: 'og:site_name', content: 'Earth AI' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:locale', content: 'en_US' },
+        { name: 'twitter:card', content: 'summary_large_image' },
       ],
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },

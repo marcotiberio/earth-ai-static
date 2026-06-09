@@ -1,0 +1,47 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"scroll_length": {
+				"__TYPE__": "FieldContent",
+				"type": "Number",
+				"value": 250
+			},
+			"items": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							["title", { "__TYPE__": "FieldContent", "type": "Text", "value": "AI Data Centres" }]
+						],
+						"key": "title-ai-data-centres"
+					},
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							["title", { "__TYPE__": "FieldContent", "type": "Text", "value": "Humanoid Robots" }]
+						],
+						"key": "title-humanoid-robots"
+					},
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							["title", { "__TYPE__": "FieldContent", "type": "Text", "value": "eVTOL" }]
+						],
+						"key": "title-evtol"
+					},
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							["title", { "__TYPE__": "FieldContent", "type": "Text", "value": "Fusion Energy" }]
+						],
+						"key": "title-fusion-energy"
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

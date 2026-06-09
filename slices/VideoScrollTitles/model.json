@@ -1,0 +1,66 @@
+{
+  "id": "video_scroll_titles",
+  "type": "SharedSlice",
+  "name": "VideoScrollTitles",
+  "description": "Pinned full-bleed scroll-scrub video with a repeatable group of headline titles overlaid; each title brightens from 20% to 100% opacity in turn as the section scrolls.",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Pinned video with a stack of titles that reveal in sequence on scroll.",
+      "imageUrl": "",
+      "primary": {
+        "is_hidden": {
+          "type": "Boolean",
+          "config": {
+            "label": "Hide slice",
+            "placeholder_false": "Visible",
+            "placeholder_true": "Hidden",
+            "default_value": false
+          }
+        },
+        "video_url": {
+          "type": "Link",
+          "config": {
+            "label": "Background video",
+            "placeholder": "Upload or select a video from the Media Library",
+            "select": "media"
+          }
+        },
+        "image": {
+          "type": "Image",
+          "config": {
+            "label": "Background image (poster / fallback)",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "scroll_length": {
+          "type": "Number",
+          "config": {
+            "label": "Scroll length (vh)",
+            "placeholder": "Pinned scroll distance in vh (default: 200)"
+          }
+        },
+        "items": {
+          "type": "Group",
+          "config": {
+            "label": "Titles",
+            "fields": {
+              "title": {
+                "type": "Text",
+                "config": {
+                  "label": "Title",
+                  "placeholder": "e.g. AI Data Centres"
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

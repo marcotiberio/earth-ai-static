@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-darkblue boxed">
+  <footer class="text-darkblue boxed !pb-sm">
     <!-- Top Bar -->
     <div class="flex flex-col items-start justify-between gap-sm mb-md w-full">
       <div class="flex flex-row items-start justify-between gap-sm w-full">

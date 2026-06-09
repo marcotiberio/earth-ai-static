@@ -9,7 +9,7 @@
   <section
     ref="rootRef"
     class="relative w-full bg-darkblue text-beige"
-    :class="tall ? 'h-[270vh]' : ''"
+    :style="tall ? { height: `${scrollLength}vh` } : null"
   >
     <div
       class="w-full overflow-hidden boxed"
@@ -138,6 +138,10 @@ const feetValue = computed(() => props.slice.primary.feet_value || '')
 const feetLabel = computed(() => props.slice.primary.feet_label || '')
 // Group field lives in primary; cap at 4 rows (the design only has room for four).
 const stats = computed(() => (props.slice.primary.stats || []).slice(0, 4))
+// Pinned scroll distance (vh) — editable per section; defaults to 220. (The
+// scrub still finishes 50vh before unpin for the end-state dwell; tune the
+// length up if the count-up feels rushed — this slice previously used 270.)
+const scrollLength = computed(() => Number(props.slice.primary.scroll_length) || 220)
 
 // --- Count-up formatting -----------------------------------------------------
 // Parse the leading number out of a label like "4.1 mil" or "96,000" so we can

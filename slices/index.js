@@ -7,13 +7,10 @@ import { defineSliceZoneComponents } from "@prismicio/vue";
 
 export const components = defineSliceZoneComponents({
   hero_image:      defineAsyncComponent(() => import("./HeroImage/index.vue")),
-  scroll_video:    defineAsyncComponent(() => import("./ScrollVideo/index.vue")),
   video_scroll:    defineAsyncComponent(() => import("./VideoScroll/index.vue")),
-  supply_chart:    defineAsyncComponent(() => import("./SupplyChart/index.vue")),
-  comparison_bars: defineAsyncComponent(() => import("./ComparisonBars/index.vue")),
+  video_scroll_titles: defineAsyncComponent(() => import("./VideoScrollTitles/index.vue")),
   race_bars:       defineAsyncComponent(() => import("./RaceBars/index.vue")),
   supply_gap:      defineAsyncComponent(() => import("./SupplyGap/index.vue")),
-  stats_row:       defineAsyncComponent(() => import("./StatsRow/index.vue")),
   drilled_stats:   defineAsyncComponent(() => import("./DrilledStats/index.vue")),
   map_targets:     defineAsyncComponent(() => import("./MapTargets/index.vue")),
   wysiwyg:         defineAsyncComponent(() => import("./Wysiwyg/index.vue")),

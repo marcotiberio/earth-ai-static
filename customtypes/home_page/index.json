@@ -17,6 +17,9 @@
             "video_scroll": {
               "type": "SharedSlice"
             },
+            "video_scroll_titles": {
+              "type": "SharedSlice"
+            },
             "drilled_stats": {
               "type": "SharedSlice"
             },
@@ -46,6 +49,17 @@
         "config": {
           "label": "Meta Description",
           "placeholder": "A brief summary of the page"
+        }
+      },
+      "meta_image": {
+        "type": "Image",
+        "config": {
+          "label": "Meta Image",
+          "constraint": {
+            "width": 1200,
+            "height": 630
+          },
+          "thumbnails": []
         }
       }
     }

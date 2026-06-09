@@ -69,6 +69,58 @@ html.lenis body {
     @apply border-0 border-t border-dashed border-beige/15;
   }
 
+  /* Typography */
+  .font-h1 {
+    font-size: 2.5rem;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+
+    @screen md {
+      font-size: 6.25rem;  
+    }
+  }
+
+  .font-h2 {
+    font-size: 2rem;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+
+    @screen md {
+      font-size: 3.75rem;  
+    }
+  }
+  
+  .font-h3 {
+    font-size: 1.375rem;
+    line-height: 1.1;
+    letter-spacing: 0;
+
+    @screen md {
+      font-size: 1.875rem;  
+    }
+  }
+
+  .font-body {
+    font-size: 1rem;
+    line-height: 1.1;
+    letter-spacing: 0;
+
+    @screen md {
+      font-size: 1.375rem;
+    }
+  }
+
+  .font-label,
+  .font-caption {
+    font-size: 1rem;
+    line-height: 1;
+    letter-spacing: 0;
+
+    @screen md {
+      font-size: 1rem;
+    }
+  }
+
   /* Display headlines render in the serif; <em> is the italic accent. */
   .wysiwyg h1, .wysiwyg h2, .wysiwyg h3 {
     @apply font-serif font-normal leading-[1.05] tracking-tight;
@@ -98,56 +150,5 @@ html.lenis body {
   }
   .btn-outline {
     @apply border border-beige/40 text-beige hover:bg-beige/10;
-  }
-
-  .font-h1 {
-    font-size: 2.5rem;
-
-    @screen md {
-      font-size: 6.25rem;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-    }
-  }
-
-  .font-h2 {
-    font-size: 2rem;
-
-    @screen md {
-      font-size: 3.75rem;
-      line-height: 1.1;
-      letter-spacing: -0.015em;
-    }
-  }
-  
-  .font-h3 {
-    font-size: 1.375rem;
-
-    @screen md {
-      font-size: 1.875rem;
-      line-height: 1.1;
-      letter-spacing: 0;
-    }
-  }
-
-  .font-body {
-    font-size: 1rem;
-
-    @screen md {
-      font-size: 1.375rem;
-      line-height: 1.1;
-      letter-spacing: 0;
-    }
-  }
-
-  .font-label,
-  .font-caption {
-    font-size: 1rem;
-
-    @screen md {
-      font-size: 1rem;
-      line-height: 1;
-      letter-spacing: 0;
-    }
   }
 }

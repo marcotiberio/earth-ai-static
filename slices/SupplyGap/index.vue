@@ -1,7 +1,7 @@
 <template>
   <!--
-    Pinned demand-vs-supply scene (an animated successor to `supply_chart`). The
-    section is tall so its inner panel sticks and scrubs progress 0→1 as you
+    Pinned demand-vs-supply scene. The section is tall so its inner panel sticks
+    and scrubs progress 0→1 as you
     scroll: the demand curve draws + counts up first (0→0.45), then the supply
     curve (0.45→0.9), each revealed with a left→right clip wipe. The deficit reads
     as the band between the rising demand curve and the falling supply curve.
@@ -11,7 +11,7 @@
   <section
     ref="rootRef"
     class="relative w-full bg-darkblue"
-    :class="tall ? 'h-[220vh]' : ''"
+    :style="tall ? { height: `${scrollLength}vh` } : null"
   >
     <div
       class="w-full boxed"
@@ -132,6 +132,8 @@ const items = (g) => (Array.isArray(g) ? g : []).map((it) => (it && typeof it ==
 
 const headingHtml = computed(() => toHtml(props.slice.primary.heading))
 const body    = computed(() => props.slice.primary.body || '')
+// Pinned scroll distance (vh) — editable per section; defaults to 220.
+const scrollLength = computed(() => Number(props.slice.primary.scroll_length) || 220)
 const demand  = computed(() => ({ label: 'DEMAND', value: '', ...obj(props.slice.primary.demand) }))
 const supply  = computed(() => ({ label: '', value: '', ...obj(props.slice.primary.supply) }))
 const xLabels = computed(() => {

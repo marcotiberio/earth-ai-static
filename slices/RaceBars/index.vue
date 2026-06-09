@@ -1,7 +1,7 @@
 <template>
   <!--
-    An animated take on `ComparisonBars`: the same metric-vs-metric data, but the
-    bars grow left→right and their numbers count up the first time the section
+    Animated metric-vs-metric comparison: the bars grow left→right and their
+    numbers count up the first time the section
     scrolls into view (a reveal port of the DrilledStats count-up). Each group is
     normalised to its own largest value; the highlighted row (EARTH AI) gets the
     orange gradient + number colour, everything else stays beige/grey. Under
@@ -10,7 +10,7 @@
   <section
     ref="rootRef"
     class="relative w-full bg-darkblue"
-    :class="tall ? 'h-[220vh]' : ''"
+    :style="tall ? { height: `${scrollLength}vh` } : null"
   >
     <div
       class="boxed"
@@ -95,9 +95,12 @@ const toHtml = (field) => {
 }
 
 const headingHtml = computed(() => toHtml(props.slice.primary.heading))
-// Groups can hang off primary.items (mirrors ComparisonBars) or the slice's
-// repeatable items — accept whichever is present.
+// Groups can hang off primary.items or the slice's repeatable items — accept
+// whichever is present.
 const groups = computed(() => props.slice.primary.items || props.slice.items || [])
+
+// Pinned scroll distance (vh) — editable per section; defaults to 220.
+const scrollLength = computed(() => Number(props.slice.primary.scroll_length) || 220)
 
 // --- Bar width + count-up (both driven by the same reveal progress) ----------
 // Bars are normalised to the largest value in their own group, scaled by FILL
